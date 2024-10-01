@@ -1,0 +1,437 @@
+import math
+print("By Nguyen Ba Phi (supported by Python GPT from OpenAI)")
+
+### Homework I.1
+print("\n \n Homework I.1")
+
+# Number of terms to calculate
+n_terms = 15
+pi_true = math.pi
+
+# Leibniz Series for Pi
+def leibniz_series(n):
+    pi_approx = 0
+    for i in range(n):
+        term = (-1) ** i / (2 * i + 1)
+        pi_approx += term
+        yield 4 * pi_approx
+
+# Nilakantha Series for Pi
+def nilakantha_series(n):
+    pi_approx = 3
+    sign = 1
+    for i in range(1, n + 1):
+        term = 4 * sign / (2 * i * (2 * i + 1) * (2 * i + 2))
+        pi_approx += term
+        sign *= -1
+        yield pi_approx
+
+# Basel Series for Pi
+def basel_series(n):
+    pi_square_approx = 0
+    for i in range(1, n + 1):
+        term = 6 / (i ** 2)
+        pi_square_approx += term
+        yield math.sqrt(pi_square_approx)
+
+# Print series and differences
+def print_series_results(series_gen, name):
+    print(f"\n{name} approximation:")
+    for i, pi_approx in enumerate(series_gen(n_terms), 1):
+        print(f"Term {i}: {pi_approx:.15f}, Difference from pi: {abs(pi_approx - pi_true):.15f}")
+
+# Leibniz Series
+print_series_results(leibniz_series, "Leibniz Series")
+
+# Nilakantha Series
+print_series_results(nilakantha_series, "Nilakantha Series")
+
+# Basel Series
+print_series_results(basel_series, "Basel Series")
+
+
+
+
+### Homework I.2
+print("\n \n Homework I.2")
+# Function to compute the Fibonacci numbers up to F_n
+def fibonacci_sequence(n):
+    fib = [0, 1]
+    for i in range(2, n + 2):  # We need F_n+1 for R_n
+        fib.append(fib[-1] + fib[-2])
+    return fib
+
+# Function to compute the ratios R_n = F_n / F_n+1 and differences R_n - R_n-1
+def fibonacci_ratios(n):
+    fib = fibonacci_sequence(n)
+    ratios = []
+    
+    for i in range(1, n+1):
+        R_n = fib[i] / fib[i+1]
+        ratios.append(R_n)
+        
+        if i > 1:
+            R_diff = R_n - ratios[i-2]
+            print(f"R_{i} = {R_n:.10f}, R_{i} - R_{i-1} = {R_diff:.2e}")
+        else:
+            print(f"R_{i} = {R_n:.10f}, R_{i} - R_{i-1} = N/A")
+
+# a) Output the Fibonacci ratios for n up to 40
+print("\nSection A")
+fibonacci_ratios(40)
+
+print("\nSection B")
+print("""
+Proof Sketch for Limiting Value of R_n:
+
+The Fibonacci sequence satisfies the recurrence relation:
+    F_{n+2} = F_{n+1} + F_n
+
+Dividing both sides by F_{n+1}, we get:
+    F_{n+2} / F_{n+1} = 1 + F_n / F_{n+1}
+
+Let R_n = F_n / F_{n+1}. As n approaches infinity, the ratios R_n stabilize, 
+meaning R_n ≈ R_{n+1}. Thus, we get:
+
+    R = 1 / (1 + R)
+
+Solving the equation:
+    R^2 + R - 1 = 0
+
+This is a quadratic equation, and using the quadratic formula:
+    R = (-b + sqrt(b^2 - 4ac)) / 2a
+
+where a = 1, b = 1, and c = -1. Solving this:
+
+    R = (-1 + sqrt(5)) / 2
+
+This gives us the inverse of the golden ratio:
+    R = 1 / phi ≈ 0.61803398875
+
+Therefore, the limiting value of R_n as n → ∞ is approximately 0.61803398875.
+""")
+
+
+
+
+
+### Homework I.3
+print("\n \n Homework I.2")
+def pascal_triangle(depth):
+    # Create a 2D list to store the triangle
+    triangle = [[1]]  # Start with the top of the triangle
+    
+    for n in range(1, depth):
+        row = [1]  # Start each row with 1
+        for k in range(1, n):
+            # Each element is the sum of the two elements directly above it
+            row.append(triangle[n-1][k-1] + triangle[n-1][k])
+        row.append(1)  # End each row with 1
+        triangle.append(row)
+    
+    # Pretty-print the triangle
+    for row in triangle:
+        print(' '.join(map(str, row)).center(depth * 2))
+
+# a) Run for a depth of 32
+print("\nSection A")
+pascal_triangle(32)
+
+
+def pascal_triangle_mod2(depth):
+    # Create a 2D list to store the triangle
+    triangle = [[1]]  # Start with the top of the triangle
+    
+    for n in range(1, depth):
+        row = [1]  # Start each row with 1
+        for k in range(1, n):
+            # Each element is the sum of the two elements directly above it, mod 2
+            row.append((triangle[n-1][k-1] + triangle[n-1][k]) % 2)
+        row.append(1)  # End each row with 1
+        triangle.append(row)
+    
+    # Pretty-print the triangle using " " for 0 and "█" for 1
+    for row in triangle:
+        print(' '.join('\u2588' if x == 1 else ' ' for x in row).center(depth * 2))
+
+# b) Run for a depth of 32
+print("\nSection B")
+pascal_triangle_mod2(32)
+
+
+def pascal_triangle_mod3(depth):
+    # Create a 2D list to store the triangle
+    triangle = [[1]]  # Start with the top of the triangle
+    
+    for n in range(1, depth):
+        row = [1]  # Start each row with 1
+        for k in range(1, n):
+            # Each element is the sum of the two elements directly above it, mod 3
+            row.append((triangle[n-1][k-1] + triangle[n-1][k]) % 3)
+        row.append(1)  # End each row with 1
+        triangle.append(row)
+    
+    # Pretty-print the triangle using symbols for 0, 1, and 2
+    for row in triangle:
+        print(' '.join('\u2588' if x == 1 else '\u2591' if x == 2 else ' ' for x in row).center(depth * 2))
+
+# d) Run for a depth of 32
+print("\nSection D")
+pascal_triangle_mod3(32)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Output:
+
+
+By Nguyen Ba Phi (supported by Python GPT from OpenAI)
+
+ 
+ Homework I.1
+
+Leibniz Series approximation:
+Term 1: 4.000000000000000, Difference from pi: 0.858407346410207
+Term 2: 2.666666666666667, Difference from pi: 0.474925986923126
+Term 3: 3.466666666666667, Difference from pi: 0.325074013076874
+Term 4: 2.895238095238096, Difference from pi: 0.246354558351698
+Term 5: 3.339682539682540, Difference from pi: 0.198089886092747
+Term 6: 2.976046176046176, Difference from pi: 0.165546477543617
+Term 7: 3.283738483738484, Difference from pi: 0.142145830148691
+Term 8: 3.017071817071818, Difference from pi: 0.124520836517975
+Term 9: 3.252365934718877, Difference from pi: 0.110773281129084
+Term 10: 3.041839618929403, Difference from pi: 0.099753034660390
+Term 11: 3.232315809405594, Difference from pi: 0.090723155815801
+Term 12: 3.058402765927333, Difference from pi: 0.083189887662460
+Term 13: 3.218402765927333, Difference from pi: 0.076810112337540
+Term 14: 3.070254617779185, Difference from pi: 0.071338035810608
+Term 15: 3.208185652261944, Difference from pi: 0.066592998672151
+
+Nilakantha Series approximation:
+Term 1: 3.166666666666667, Difference from pi: 0.025074013076873
+Term 2: 3.133333333333333, Difference from pi: 0.008259320256460
+Term 3: 3.145238095238095, Difference from pi: 0.003645441648302
+Term 4: 3.139682539682540, Difference from pi: 0.001910113907253
+Term 5: 3.142712842712843, Difference from pi: 0.001120189123049
+Term 6: 3.140881340881341, Difference from pi: 0.000711312708452
+Term 7: 3.142071817071817, Difference from pi: 0.000479163482024
+Term 8: 3.141254823607765, Difference from pi: 0.000337829982028
+Term 9: 3.141839618929402, Difference from pi: 0.000246965339609
+Term 10: 3.141406718496502, Difference from pi: 0.000185935093291
+Term 11: 3.141736099260665, Difference from pi: 0.000143445670872
+Term 12: 3.141479689004255, Difference from pi: 0.000112964585538
+Term 13: 3.141683189207755, Difference from pi: 0.000090535617962
+Term 14: 3.141518985595276, Difference from pi: 0.000073667994517
+Term 15: 3.141653394197426, Difference from pi: 0.000060740607633
+
+Basel Series approximation:
+Term 1: 2.449489742783178, Difference from pi: 0.692102910806615
+Term 2: 2.738612787525831, Difference from pi: 0.402979866063963
+Term 3: 2.857738033247041, Difference from pi: 0.283854620342752
+Term 4: 2.922612986125030, Difference from pi: 0.218979667464763
+Term 5: 2.963387701038571, Difference from pi: 0.178204952551222
+Term 6: 2.991376494748418, Difference from pi: 0.150216158841375
+Term 7: 3.011773947846214, Difference from pi: 0.129818705743579
+Term 8: 3.027297856657843, Difference from pi: 0.114294796931950
+Term 9: 3.039507589561053, Difference from pi: 0.102085064028740
+Term 10: 3.049361635982070, Difference from pi: 0.092231017607723
+Term 11: 3.057481506707563, Difference from pi: 0.084111146882230
+Term 12: 3.064287817833928, Difference from pi: 0.077304835755865
+Term 13: 3.070075371893220, Difference from pi: 0.071517281696573
+Term 14: 3.075056915571361, Difference from pi: 0.066535738018432
+Term 15: 3.079389826032086, Difference from pi: 0.062202827557707
+
+ 
+ Homework I.2
+
+Section A
+R_1 = 1.0000000000, R_1 - R_0 = N/A
+R_2 = 0.5000000000, R_2 - R_1 = -5.00e-01
+R_3 = 0.6666666667, R_3 - R_2 = 1.67e-01
+R_4 = 0.6000000000, R_4 - R_3 = -6.67e-02
+R_5 = 0.6250000000, R_5 - R_4 = 2.50e-02
+R_6 = 0.6153846154, R_6 - R_5 = -9.62e-03
+R_7 = 0.6190476190, R_7 - R_6 = 3.66e-03
+R_8 = 0.6176470588, R_8 - R_7 = -1.40e-03
+R_9 = 0.6181818182, R_9 - R_8 = 5.35e-04
+R_10 = 0.6179775281, R_10 - R_9 = -2.04e-04
+R_11 = 0.6180555556, R_11 - R_10 = 7.80e-05
+R_12 = 0.6180257511, R_12 - R_11 = -2.98e-05
+R_13 = 0.6180371353, R_13 - R_12 = 1.14e-05
+R_14 = 0.6180327869, R_14 - R_13 = -4.35e-06
+R_15 = 0.6180344478, R_15 - R_14 = 1.66e-06
+R_16 = 0.6180338134, R_16 - R_15 = -6.34e-07
+R_17 = 0.6180340557, R_17 - R_16 = 2.42e-07
+R_18 = 0.6180339632, R_18 - R_17 = -9.26e-08
+R_19 = 0.6180339985, R_19 - R_18 = 3.54e-08
+R_20 = 0.6180339850, R_20 - R_19 = -1.35e-08
+R_21 = 0.6180339902, R_21 - R_20 = 5.16e-09
+R_22 = 0.6180339882, R_22 - R_21 = -1.97e-09
+R_23 = 0.6180339890, R_23 - R_22 = 7.53e-10
+R_24 = 0.6180339887, R_24 - R_23 = -2.87e-10
+R_25 = 0.6180339888, R_25 - R_24 = 1.10e-10
+R_26 = 0.6180339887, R_26 - R_25 = -4.19e-11
+R_27 = 0.6180339888, R_27 - R_26 = 1.60e-11
+R_28 = 0.6180339887, R_28 - R_27 = -6.12e-12
+R_29 = 0.6180339888, R_29 - R_28 = 2.34e-12
+R_30 = 0.6180339887, R_30 - R_29 = -8.93e-13
+R_31 = 0.6180339887, R_31 - R_30 = 3.41e-13
+R_32 = 0.6180339887, R_32 - R_31 = -1.30e-13
+R_33 = 0.6180339887, R_33 - R_32 = 4.97e-14
+R_34 = 0.6180339887, R_34 - R_33 = -1.90e-14
+R_35 = 0.6180339887, R_35 - R_34 = 7.33e-15
+R_36 = 0.6180339887, R_36 - R_35 = -2.78e-15
+R_37 = 0.6180339887, R_37 - R_36 = 9.99e-16
+R_38 = 0.6180339887, R_38 - R_37 = -3.33e-16
+R_39 = 0.6180339887, R_39 - R_38 = 1.11e-16
+R_40 = 0.6180339887, R_40 - R_39 = -1.11e-16
+
+Section B
+
+Proof Sketch for Limiting Value of R_n:
+
+The Fibonacci sequence satisfies the recurrence relation:
+    F_{n+2} = F_{n+1} + F_n
+
+Dividing both sides by F_{n+1}, we get:
+    F_{n+2} / F_{n+1} = 1 + F_n / F_{n+1}
+
+Let R_n = F_n / F_{n+1}. As n approaches infinity, the ratios R_n stabilize, 
+meaning R_n ≈ R_{n+1}. Thus, we get:
+
+    R = 1 / (1 + R)
+
+Solving the equation:
+    R^2 + R - 1 = 0
+
+This is a quadratic equation, and using the quadratic formula:
+    R = (-b + sqrt(b^2 - 4ac)) / 2a
+
+where a = 1, b = 1, and c = -1. Solving this:
+
+    R = (-1 + sqrt(5)) / 2
+
+This gives us the inverse of the golden ratio:
+    R = 1 / phi ≈ 0.61803398875
+
+Therefore, the limiting value of R_n as n → ∞ is approximately 0.61803398875.
+
+
+ 
+ Homework I.2
+
+Section A
+                               1                                
+                              1 1                               
+                             1 2 1                              
+                            1 3 3 1                             
+                           1 4 6 4 1                            
+                         1 5 10 10 5 1                          
+                        1 6 15 20 15 6 1                        
+                      1 7 21 35 35 21 7 1                       
+                     1 8 28 56 70 56 28 8 1                     
+                  1 9 36 84 126 126 84 36 9 1                   
+              1 10 45 120 210 252 210 120 45 10 1               
+            1 11 55 165 330 462 462 330 165 55 11 1             
+          1 12 66 220 495 792 924 792 495 220 66 12 1           
+      1 13 78 286 715 1287 1716 1716 1287 715 286 78 13 1       
+   1 14 91 364 1001 2002 3003 3432 3003 2002 1001 364 91 14 1   
+1 15 105 455 1365 3003 5005 6435 6435 5005 3003 1365 455 105 15 1
+1 16 120 560 1820 4368 8008 11440 12870 11440 8008 4368 1820 560 120 16 1
+1 17 136 680 2380 6188 12376 19448 24310 24310 19448 12376 6188 2380 680 136 17 1
+1 18 153 816 3060 8568 18564 31824 43758 48620 43758 31824 18564 8568 3060 816 153 18 1
+1 19 171 969 3876 11628 27132 50388 75582 92378 92378 75582 50388 27132 11628 3876 969 171 19 1
+1 20 190 1140 4845 15504 38760 77520 125970 167960 184756 167960 125970 77520 38760 15504 4845 1140 190 20 1
+1 21 210 1330 5985 20349 54264 116280 203490 293930 352716 352716 293930 203490 116280 54264 20349 5985 1330 210 21 1
+1 22 231 1540 7315 26334 74613 170544 319770 497420 646646 705432 646646 497420 319770 170544 74613 26334 7315 1540 231 22 1
+1 23 253 1771 8855 33649 100947 245157 490314 817190 1144066 1352078 1352078 1144066 817190 490314 245157 100947 33649 8855 1771 253 23 1
+1 24 276 2024 10626 42504 134596 346104 735471 1307504 1961256 2496144 2704156 2496144 1961256 1307504 735471 346104 134596 42504 10626 2024 276 24 1
+1 25 300 2300 12650 53130 177100 480700 1081575 2042975 3268760 4457400 5200300 5200300 4457400 3268760 2042975 1081575 480700 177100 53130 12650 2300 300 25 1
+1 26 325 2600 14950 65780 230230 657800 1562275 3124550 5311735 7726160 9657700 10400600 9657700 7726160 5311735 3124550 1562275 657800 230230 65780 14950 2600 325 26 1
+1 27 351 2925 17550 80730 296010 888030 2220075 4686825 8436285 13037895 17383860 20058300 20058300 17383860 13037895 8436285 4686825 2220075 888030 296010 80730 17550 2925 351 27 1
+1 28 378 3276 20475 98280 376740 1184040 3108105 6906900 13123110 21474180 30421755 37442160 40116600 37442160 30421755 21474180 13123110 6906900 3108105 1184040 376740 98280 20475 3276 378 28 1
+1 29 406 3654 23751 118755 475020 1560780 4292145 10015005 20030010 34597290 51895935 67863915 77558760 77558760 67863915 51895935 34597290 20030010 10015005 4292145 1560780 475020 118755 23751 3654 406 29 1
+1 30 435 4060 27405 142506 593775 2035800 5852925 14307150 30045015 54627300 86493225 119759850 145422675 155117520 145422675 119759850 86493225 54627300 30045015 14307150 5852925 2035800 593775 142506 27405 4060 435 30 1
+1 31 465 4495 31465 169911 736281 2629575 7888725 20160075 44352165 84672315 141120525 206253075 265182525 300540195 300540195 265182525 206253075 141120525 84672315 44352165 20160075 7888725 2629575 736281 169911 31465 4495 465 31 1
+
+Section B
+                               █                                
+                              █ █                               
+                             █   █                              
+                            █ █ █ █                             
+                           █       █                            
+                          █ █     █ █                           
+                         █   █   █   █                          
+                        █ █ █ █ █ █ █ █                         
+                       █               █                        
+                      █ █             █ █                       
+                     █   █           █   █                      
+                    █ █ █ █         █ █ █ █                     
+                   █       █       █       █                    
+                  █ █     █ █     █ █     █ █                   
+                 █   █   █   █   █   █   █   █                  
+                █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █                 
+               █                               █                
+              █ █                             █ █               
+             █   █                           █   █              
+            █ █ █ █                         █ █ █ █             
+           █       █                       █       █            
+          █ █     █ █                     █ █     █ █           
+         █   █   █   █                   █   █   █   █          
+        █ █ █ █ █ █ █ █                 █ █ █ █ █ █ █ █         
+       █               █               █               █        
+      █ █             █ █             █ █             █ █       
+     █   █           █   █           █   █           █   █      
+    █ █ █ █         █ █ █ █         █ █ █ █         █ █ █ █     
+   █       █       █       █       █       █       █       █    
+  █ █     █ █     █ █     █ █     █ █     █ █     █ █     █ █   
+ █   █   █   █   █   █   █   █   █   █   █   █   █   █   █   █  
+█ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ 
+
+Section D
+                               █                                
+                              █ █                               
+                             █ ░ █                              
+                            █     █                             
+                           █ █   █ █                            
+                          █ ░ █ █ ░ █                           
+                         █     ░     █                          
+                        █ █   ░ ░   █ █                         
+                       █ ░ █ ░ █ ░ █ ░ █                        
+                      █                 █                       
+                     █ █               █ █                      
+                    █ ░ █             █ ░ █                     
+                   █     █           █     █                    
+                  █ █   █ █         █ █   █ █                   
+                 █ ░ █ █ ░ █       █ ░ █ █ ░ █                  
+                █     ░     █     █     ░     █                 
+               █ █   ░ ░   █ █   █ █   ░ ░   █ █                
+              █ ░ █ ░ █ ░ █ ░ █ █ ░ █ ░ █ ░ █ ░ █               
+             █                 ░                 █              
+            █ █               ░ ░               █ █             
+           █ ░ █             ░ █ ░             █ ░ █            
+          █     █           ░     ░           █     █           
+         █ █   █ █         ░ ░   ░ ░         █ █   █ █          
+        █ ░ █ █ ░ █       ░ █ ░ ░ █ ░       █ ░ █ █ ░ █         
+       █     ░     █     ░     █     ░     █     ░     █        
+      █ █   ░ ░   █ █   ░ ░   █ █   ░ ░   █ █   ░ ░   █ █       
+     █ ░ █ ░ █ ░ █ ░ █ ░ █ ░ █ ░ █ ░ █ ░ █ ░ █ ░ █ ░ █ ░ █      
+    █                                                     █     
+   █ █                                                   █ █    
+  █ ░ █                                                 █ ░ █   
+ █     █                                               █     █  
+█ █   █ █                                             █ █   █ █ 
