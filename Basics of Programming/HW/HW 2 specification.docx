@@ -1,0 +1,38 @@
+HW 2 - Specification
+By Nguyen Ba Phi - 3D Graphics Engine
+
+I/ Introduction and Goal of the Program
+The goal of this program is the creation of a 3D graphics engine intended to create, manipulate, and render objects with colour, transparency, within a virtual 3D space of N*N*N pixels using line-based construction. The 3D render will then be projected on a 2D plane on the screen with an ASCII representation.
+Line-based construction means the usage of Bresenham’s line algorithm in 3D to create lines between points, allowing the possibility of defining objects like cubes using a series of connected lines. Line based construction will also depend on the line origin preset that we choose such as it being only originating from 1 point, from 1 face, from a series of points on a face etc…  Object manipulation should be able to undergo basic transformations like rotation and scaling. 
+
+II/ Description of the Virtual Space and Objects
+3D Space: We define the 3D space N*N*N as the virtual resolution, with the user being able to adjust N, with each pixel containing colour (RGB values) and transparency
+Object Creation: We specify that objects are constructed from lines (polylines) with given start and end coordinates, colour, and transparency.
+Preset Objects: Predefined objects like a cube, pyramid, or sphere will be listed, which can be generated and stored to be used by the user.
+Object transformation: We specify how objects can be rotated, scaled, translated (as a change of frames) using the movement of the constructed lines, how objects can change colour, brightness, transparency using the change of line properties.
+2D render: We define the 2D space N*N, basically a face of the N*N*N 3D space, as the render of the object in ASCII format
+Line origin presets: We may define some limitations to the possible lines, such as it being only from 1 point, from 1 face, from a series of points on a face etc...
+
+III/ User Interactions and Inputs
+Menu Overview: The user interaction and inputs in the menu will be as follows:
+	Create 3D space: Let the user define the resolution or dimension of the 3D space
+	Choose line construction: 
+Create Object: Lets the user specify an object type, dimensions, colour, and transparency.
+Transform Object: Options to rotate, scale, or translate the object.
+Render/Project to 2D: Displays the object on a 2D plane based on the current orientation.
+Save/Load Object: Allows saving the current 3D scene to a file and reloading it.
+Exit: Ends the program.
+
+User Input Expectations: Define acceptable inputs, such as:
+Dimensions: Must be within the bounds of the NxNxN space.
+Rotation: Specify rotation increments or degree values the user can enter.
+File Names: Allow alphanumeric characters for save/load functions.
+IV/ Expected Behavior and Outputs
+Visual Output:The program will output a simple 2D ASCII-based representation of the projected 3D scene. Colours and transparency (e.g., shading levels or symbols) will be represented using the 2D render.
+V/ Program States and Conditions
+Initial State: The program starts with an empty 3D space and no objects.
+Object Created State: After creating an object, it exists in the 3D space with defined color and transparency.
+Transformed State: An object can be in a transformed state if rotated, scaled, or translated.
+Projected State: Once projected, the object is displayed in 2D on the terminal.
+File Interaction State: Describe the transitions during save/load operations.
+
