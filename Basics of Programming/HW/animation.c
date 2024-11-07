@@ -343,7 +343,7 @@ int main() {
     }
 
     // Render and print the 2D face (e.g., face 0)
-    render_2d_face(space, TOP, screen);
+    render_2d_face(space, FRONT, screen);
     print_2d_screen(screen);
 
     // Save the 3D space and 2D screen to files
