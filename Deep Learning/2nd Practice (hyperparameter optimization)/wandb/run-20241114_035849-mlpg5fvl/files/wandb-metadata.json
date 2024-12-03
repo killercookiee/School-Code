@@ -1,0 +1,38 @@
+{
+  "os":  "macOS-14.5-arm64-arm-64bit",
+  "python":  "3.11.5",
+  "startedAt":  "2024-11-14T02:58:49.413494Z",
+  "program":  "/Users/killercookie/Documents/GitHub/School-Code/Deep Learning/2nd Practice (hyperparameter optimization)/04_hyperopt_wandb.ipynb",
+  "git":  {
+    "remote":  "https://github.com/killercookiee/School-Code.git",
+    "commit":  "307041803dd9f37de198b274c35bcfd2d8359681"
+  },
+  "email":  "nguyenbaphiperth@gmail.com",
+  "root":  "/Users/killercookie/Documents/GitHub/School-Code/Deep Learning/2nd Practice (hyperparameter optimization)",
+  "host":  "Nguyens-Air",
+  "username":  "killercookie",
+  "executable":  "/usr/local/bin/python3",
+  "codePathLocal":  "04_hyperopt_wandb.ipynb",
+  "cpu_count":  8,
+  "cpu_count_logical":  8,
+  "disk":  {
+    "/":  {
+      "total":  "245107195904",
+      "used":  "165166215168"
+    }
+  },
+  "memory":  {
+    "total":  "8589934592"
+  },
+  "cpu":  {
+    "count":  8,
+    "countLogical":  8
+  },
+  "apple":  {
+    "name":  "Apple M2",
+    "ecpuCores":  4,
+    "pcpuCores":  4,
+    "gpuCores":  8,
+    "memoryGb":  8
+  }
+}

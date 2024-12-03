@@ -1,3 +1,184 @@
-The developer documentation consists of
-- explanation of your solution, modules, data structures, algorithms,
-- a list of your functions and their interface (input parameters, returned result) with explanation.
+I/ General Solution Overview
+    The goal of this program is the creation of a 3D graphics engine intended to create, manipulate, and render objects with colour, transparency, within a virtual 3D space of N*N*N pixels using line-based construction. The 3D render will then be projected on a 2D plane on the screen with an ASCII representation.
+
+    Line-based construction means the usage of Bresenham’s line algorithm in 3D to create lines between points, allowing the possibility of defining objects like cubes using a series of connected lines. Line based construction will also depend on the line origin preset that we choose such as it being only originating from 1 point, from 1 face, from a series of points on a face etc… 
+    
+    Object manipulation should be able to undergo basic transformations like rotation.
+
+    My Solution:
+    1. 3D Object Construction: Creates hollow or filled objects like spheres, cubes, and donuts using customizable parameters for brightness, transparency, and size.
+    2. Visualization: Renders 2D projections of 3D objects using ASCII art.
+    3. Transformation: Applies rotations around X, Y, and Z axes.
+    3. File Managemnt: Saves and loads objects from files for reuse.
+    4. User Interaction: Includes a menu-driven interface for creating, viewing, transforming, and saving 3D objects.
+
+
+
+
+II/ Key Data Structures
+1. Pixel
+    Represents a single voxel (3D pixel) in the 3D space.
+
+    typedef struct {
+        int r, g, b;           // RGB color components
+        float transparency;    // Transparency level
+        float brightness;      // Brightness level
+    } Pixel;
+
+2. Cube
+    Represents the 3D grid of pixels.
+
+    typedef struct {
+        int N;                 // Size of the grid (NxNxN)
+        Pixel ***pixels;       // 3D array of Pixel objects
+    } Cube; 
+
+3. Point
+    Represents a point in 3D space.
+
+    typedef struct {
+        float x, y, z;         // Coordinates
+    } Point;
+
+4. Line
+    Represents a line in 3D space.
+
+    typedef struct {
+        Point start, end;      // Start and end points
+        float brightness;      // Line brightness
+    } Line;
+
+5. LineSpace
+    Stores a dynamic collection of lines.
+
+    typedef struct {
+        Line *lines;           // Array of Line objects
+        int line_count;        // Number of lines
+        int capacity;          // Capacity of the array
+    } LineSpace;
+
+6. ConstructedSpace
+    Combines the 3D space and associated lines.
+
+    typedef struct {
+        Cube *space;           // Pointer to the Cube
+        LineSpace *lines;      // Pointer to LineSpace
+        int N;                 // Size of the Cube
+    } ConstructedSpace;
+
+
+III/ Key Algorithms
+1. Bresenham's Line Algorithm (Modified for 3D)
+    Used to draw lines in 3D space.
+    Updates voxel brightness along the line's path.
+2. Spherical and Toroidal Equations
+    Used to generate points for spheres and donuts.
+3. Normalization
+    Normalizes brightness values for rendering 2D projections with consistent intensity.
+4. 3D Rotation
+    Rotates points in 3D space using trigonometric transformations.
+
+
+IV/ Functions and Interfaces
+A. Core 3D Space Management
+    Cube* create_empty_3d_space(int N)
+        Input: N (size of the 3D grid)
+        Output: Pointer to an empty Cube of size NxNxN.
+        Purpose: Allocates and initializes a 3D space with default values.
+    void free_cube(Cube *space)
+        Input: Pointer to a Cube.
+        Output: None.
+        Purpose: Frees the memory allocated for a Cube.
+
+B. Line and Space Construction
+    LineSpace* create_line_space()
+        Input: None.
+        Output: Pointer to an empty LineSpace.
+        Purpose: Initializes a structure to store lines.
+
+    void add_line(LineSpace *lines, Point start, Point end, float brightness)
+        Input: Pointer to LineSpace, start and end points, and line brightness.
+        Output: None.
+        Purpose: Adds a line to the LineSpace.
+    
+    void update_3d_space_along_line(Cube *space, Point start, Point end, float brightness)
+        Input: Pointer to a Cube, start and end points, and line brightness.
+        Output: None.
+        Purpose: Updates voxel brightness along a line in the Cube.
+
+C. Object Construction
+    ConstructedSpace* construct_cube(MediumParameters medium_params, LineParameters line_params, int object_params[1]);
+        Purpose: Create hollow cube object
+
+    ConstructedSpace* construct_filled_cube(MediumParameters medium_params, LineParameters line_params, int object_params[1]);
+        Purpose: Create filled cube object
+
+    ConstructedSpace* construct_sphere(MediumParameters medium_params, LineParameters line_params, int object_params[2]);
+        Purpose: Create hollw sphere object
+
+    ConstructedSpace* construct_filled_sphere(MediumParameters medium_params, LineParameters line_params, int object_params[2]);
+        Purpose: Create filled sphere object
+
+    ConstructedSpace* construct_donut(MediumParameters medium_params, LineParameters line_params, int object_params[2]);
+        Purpose: Create hollow donut object
+
+    ConstructedSpace* construct_filled_donut(MediumParameters medium_params, LineParameters line_params, int object_params[2]);
+        Purpose: Create filled donut object
+
+D. Visualization
+    void render_2d_face(Cube *space, Face face, char **screen)
+        Input: Pointer to a Cube, selected face, and a 2D screen buffer.
+        Output: None.
+        Purpose: Projects a 3D face onto a 2D screen.
+
+    void print_2d_screen(char **screen, int N)
+        Input: 2D screen buffer and its size.
+        Output: None.
+        Purpose: Prints the 2D projection to the console.
+
+    void free_screen(char **screen, int N)
+        Purpose: Frees the memory allocated for the 2D screen.
+        Inputs:
+            char** screen: The screen buffer to free.
+            int N: Size of the screen.
+        Outputs: None.
+
+E. Transformation
+    void rotate_point(Point *p, float theta_x, float theta_y, float theta_z)
+        Inputs:
+        Point* p: The point to rotate.
+        float theta_x, theta_y, theta_z: Rotation angles (radians).
+        Outputs: None (modifies the input point).
+        Purpose: Applies 3D rotation to a single point around the X, Y, and Z axes.
+
+    ConstructedSpace* rotate_constructed_space(ConstructedSpace* input, int transformation_params[3])
+        Input: Pointer to a ConstructedSpace and rotation angles for X, Y, Z axes.
+        Output: Pointer to the rotated ConstructedSpace.
+        Purpose: Applies 3D rotation to an object.
+    
+F. File Management
+    void save_3d_space(ConstructedSpace *constructed, const char *filename)
+        Input: Pointer to a ConstructedSpace and filename.
+        Output: None.
+        Purpose: Saves the object to a file.
+    
+    ConstructedSpace* load_3d_space(const char *filename)
+        Input: Filename.
+        Output: Pointer to the loaded ConstructedSpace.
+        Purpose: Loads an object from a file.
+
+    
+
+G. User Interface
+    void display_menu()
+        Purpose: Displays the main menu.
+
+    void create_object()
+        Purpose: Interactively creates a new 3D object based on user input.
+
+    void transform_object()
+        Purpose: Rotates the constructed object interactively.
+
+    void save_load_object()
+        Purpose: Saves and Loads files
+

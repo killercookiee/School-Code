@@ -1,0 +1,13 @@
+{"time":"2024-11-14T03:58:49.418601+01:00","level":"INFO","msg":"using version","core version":"0.18.7"}
+{"time":"2024-11-14T03:58:49.418978+01:00","level":"INFO","msg":"created symlink","path":"/Users/killercookie/Documents/GitHub/School-Code/Deep Learning/2nd Practice (hyperparameter optimization)/wandb/run-20241114_035849-mlpg5fvl/logs/debug-core.log"}
+{"time":"2024-11-14T03:58:49.534705+01:00","level":"INFO","msg":"created new stream","id":"mlpg5fvl"}
+{"time":"2024-11-14T03:58:49.535304+01:00","level":"INFO","msg":"stream: started","id":"mlpg5fvl"}
+{"time":"2024-11-14T03:58:49.535492+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"mlpg5fvl"}
+{"time":"2024-11-14T03:58:49.535615+01:00","level":"INFO","msg":"sender: started","stream_id":"mlpg5fvl"}
+{"time":"2024-11-14T03:58:49.535868+01:00","level":"INFO","msg":"handler: started","stream_id":"mlpg5fvl"}
+{"time":"2024-11-14T03:58:49.827657+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-11-14T03:58:55.17727+01:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-14T03:58:56.315149+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-11-14T03:58:56.316067+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-11-14T03:58:57.320149+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"saving job artifact","runtime_seconds":0.795703625},{"desc":"uploading output.log","runtime_seconds":0.588002416,"progress":"302B/302B"}],"total_operations":2}}
+{"time":"2024-11-14T03:58:59.561819+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}

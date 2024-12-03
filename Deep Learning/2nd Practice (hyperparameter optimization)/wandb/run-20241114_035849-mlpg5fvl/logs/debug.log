@@ -1,0 +1,313 @@
+2024-11-14 03:58:49,398 INFO    Thread-6 (_run_job):35944 [wandb_setup.py:_flush():79] Current SDK version is 0.18.3
+2024-11-14 03:58:49,398 INFO    Thread-6 (_run_job):35944 [wandb_setup.py:_flush():79] Configure stats pid to 35944
+2024-11-14 03:58:49,398 INFO    Thread-6 (_run_job):35944 [wandb_setup.py:_flush():79] Loading settings from /Users/killercookie/.config/wandb/settings
+2024-11-14 03:58:49,398 INFO    Thread-6 (_run_job):35944 [wandb_setup.py:_flush():79] Loading settings from /Users/killercookie/Documents/GitHub/School-Code/Deep Learning/2nd Practice (hyperparameter optimization)/wandb/settings
+2024-11-14 03:58:49,398 INFO    Thread-6 (_run_job):35944 [wandb_setup.py:_flush():79] Loading settings from environment variables: {'project': 'sweep_project', 'base_url': 'https://api.wandb.ai', 'entity': 'nguyenbaphi-', 'root_dir': '/Users/killercookie/Documents/GitHub/School-Code/Deep Learning/2nd Practice (hyperparameter optimization)', 'sweep_id': 'mhhk7itk', 'run_id': 'mlpg5fvl', 'sweep_param_path': '/Users/killercookie/Documents/GitHub/School-Code/Deep Learning/2nd Practice (hyperparameter optimization)/wandb/sweep-mhhk7itk/config-mlpg5fvl.yaml'}
+2024-11-14 03:58:49,398 INFO    Thread-6 (_run_job):35944 [wandb_setup.py:_flush():79] Applying setup settings: {'mode': None, '_disable_service': None}
+2024-11-14 03:58:49,398 INFO    Thread-6 (_run_job):35944 [wandb_setup.py:_flush():79] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2024-11-14 03:58:49,398 INFO    Thread-6 (_run_job):35944 [wandb_setup.py:_flush():79] Applying login settings: {}
+2024-11-14 03:58:49,399 INFO    Thread-6 (_run_job):35944 [wandb_init.py:_log_setup():532] Logging user logs to /Users/killercookie/Documents/GitHub/School-Code/Deep Learning/2nd Practice (hyperparameter optimization)/wandb/run-20241114_035849-mlpg5fvl/logs/debug.log
+2024-11-14 03:58:49,399 INFO    Thread-6 (_run_job):35944 [wandb_init.py:_log_setup():533] Logging internal logs to /Users/killercookie/Documents/GitHub/School-Code/Deep Learning/2nd Practice (hyperparameter optimization)/wandb/run-20241114_035849-mlpg5fvl/logs/debug-internal.log
+2024-11-14 03:58:49,399 INFO    Thread-6 (_run_job):35944 [wandb_init.py:_jupyter_setup():478] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x16dd09310>
+2024-11-14 03:58:49,405 INFO    Thread-6 (_run_job):35944 [wandb_init.py:init():617] calling init triggers
+2024-11-14 03:58:49,405 INFO    Thread-6 (_run_job):35944 [wandb_init.py:init():624] wandb.init called with sweep_config: {'learning_rate': 0.001, 'neurons_fc1': 1024, 'neurons_fc2': 128, 'optimizer': 'sgd'}
+config: {}
+2024-11-14 03:58:49,405 INFO    Thread-6 (_run_job):35944 [wandb_init.py:init():667] starting backend
+2024-11-14 03:58:49,405 INFO    Thread-6 (_run_job):35944 [wandb_init.py:init():671] sending inform_init request
+2024-11-14 03:58:49,412 INFO    Thread-6 (_run_job):35944 [backend.py:_multiprocessing_setup():104] multiprocessing start_methods=spawn,fork,forkserver, using: spawn
+2024-11-14 03:58:49,412 INFO    Thread-6 (_run_job):35944 [wandb_init.py:init():684] backend started and connected
+2024-11-14 03:58:49,433 INFO    Thread-6 (_run_job):35944 [wandb_run.py:_config_callback():1394] config_cb None None {'learning_rate': 0.001, 'neurons_fc1': 1024, 'neurons_fc2': 128, 'optimizer': 'sgd'}
+2024-11-14 03:58:49,440 INFO    Thread-6 (_run_job):35944 [wandb_run.py:_label_probe_notebook():1346] probe notebook
+2024-11-14 03:58:49,449 INFO    Thread-6 (_run_job):35944 [wandb_init.py:init():779] updated telemetry
+2024-11-14 03:58:49,555 INFO    Thread-6 (_run_job):35944 [wandb_init.py:init():812] communicating run to backend with 90.0 second timeout
+2024-11-14 03:58:49,821 INFO    Thread-6 (_run_job):35944 [wandb_init.py:init():863] starting run threads in backend
+2024-11-14 03:58:50,099 INFO    Thread-6 (_run_job):35944 [wandb_run.py:_console_start():2465] atexit reg
+2024-11-14 03:58:50,100 INFO    Thread-6 (_run_job):35944 [wandb_run.py:_redirect():2313] redirect: wrap_raw
+2024-11-14 03:58:50,100 INFO    Thread-6 (_run_job):35944 [wandb_run.py:_redirect():2378] Wrapping output streams.
+2024-11-14 03:58:50,100 INFO    Thread-6 (_run_job):35944 [wandb_run.py:_redirect():2403] Redirects installed.
+2024-11-14 03:58:50,105 INFO    Thread-6 (_run_job):35944 [wandb_init.py:init():907] run started, returning control to user process
+2024-11-14 03:58:55,175 INFO    MainThread:35944 [jupyter.py:save_ipynb():387] not saving jupyter notebook
+2024-11-14 03:58:55,176 INFO    MainThread:35944 [wandb_init.py:_pause_backend():443] pausing backend
+2024-11-14 03:58:56,313 INFO    Thread-6 (_run_job):35944 [wandb_run.py:_finish():2164] finishing run nguyenbaphi-/sweep_project/mlpg5fvl
+2024-11-14 03:58:56,313 INFO    Thread-6 (_run_job):35944 [jupyter.py:save_history():459] not saving jupyter history
+2024-11-14 03:58:56,313 INFO    Thread-6 (_run_job):35944 [jupyter.py:save_ipynb():387] not saving jupyter notebook
+2024-11-14 03:58:56,313 INFO    Thread-6 (_run_job):35944 [wandb_init.py:_jupyter_teardown():460] cleaning up jupyter logic
+2024-11-14 03:58:56,314 INFO    Thread-6 (_run_job):35944 [wandb_run.py:_atexit_cleanup():2428] got exitcode: 1
+2024-11-14 03:58:56,314 INFO    Thread-6 (_run_job):35944 [wandb_run.py:_restore():2410] restore
+2024-11-14 03:58:56,314 INFO    Thread-6 (_run_job):35944 [wandb_run.py:_restore():2416] restore done
+2024-11-14 03:58:58,324 ERROR   Thread-6 (_run_job):35944 [ipython.py:update():120] Socket operation on non-socket
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/torchvision/datasets/utils.py", line 32, in _urlretrieve
+    pbar.update(len(chunk))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 1242, in update
+    self.refresh(lock_args=self.lock_args)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 1347, in refresh
+    self.display()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 1495, in display
+    self.sp(self.__str__() if msg is None else msg)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 459, in print_status
+    fp_write('\r' + s + (' ' * max(last_len[0] - len_s, 0)))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 452, in fp_write
+    fp.write(str(s))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/utils.py", line 196, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/wandb/sdk/lib/redirect.py", line 645, in write
+    self._old_write(data)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 694, in write
+    self._schedule_flush()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 590, in _schedule_flush
+    self.pub_thread.schedule(_schedule_in_thread)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 267, in schedule
+    self._event_pipe.send(b"")
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/zmq/sugar/socket.py", line 701, in send
+    return super().send(data, flags=flags, copy=copy, track=track)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "_zmq.py", line 1092, in zmq.backend.cython._zmq.Socket.send
+  File "_zmq.py", line 1134, in zmq.backend.cython._zmq.Socket.send
+  File "_zmq.py", line 1209, in zmq.backend.cython._zmq._check_closed
+zmq.error.ZMQError: Socket operation on non-socket
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/wandb/agents/pyagent.py", line 306, in _run_job
+    self._function()
+  File "/var/folders/dy/crwmhrjj0cqbyz9960bfh8zm0000gn/T/ipykernel_35944/3316770833.py", line 44, in sweep_train
+    dm.prepare_data()
+  File "/var/folders/dy/crwmhrjj0cqbyz9960bfh8zm0000gn/T/ipykernel_35944/2782740760.py", line 11, in prepare_data
+    CIFAR10(self.data_dir,train=True,download=True)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/torchvision/datasets/cifar.py", line 66, in __init__
+    self.download()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/torchvision/datasets/cifar.py", line 140, in download
+    download_and_extract_archive(self.url, self.root, filename=self.filename, md5=self.tgz_md5)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/torchvision/datasets/utils.py", line 395, in download_and_extract_archive
+    download_url(url, download_root, filename, md5)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/torchvision/datasets/utils.py", line 132, in download_url
+    _urlretrieve(url, fpath)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/torchvision/datasets/utils.py", line 29, in _urlretrieve
+    with open(filename, "wb") as fh, tqdm(total=response.length) as pbar:
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 1140, in __exit__
+    self.close()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 1302, in close
+    self.display(pos=0)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 1495, in display
+    self.sp(self.__str__() if msg is None else msg)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 459, in print_status
+    fp_write('\r' + s + (' ' * max(last_len[0] - len_s, 0)))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 453, in fp_write
+    fp_flush()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/utils.py", line 196, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 604, in flush
+    self.pub_thread.schedule(self._flush)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 267, in schedule
+    self._event_pipe.send(b"")
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/zmq/sugar/socket.py", line 701, in send
+    return super().send(data, flags=flags, copy=copy, track=track)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "_zmq.py", line 1092, in zmq.backend.cython._zmq.Socket.send
+  File "_zmq.py", line 1134, in zmq.backend.cython._zmq.Socket.send
+  File "_zmq.py", line 1209, in zmq.backend.cython._zmq._check_closed
+zmq.error.ZMQError: Socket operation on non-socket
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/wandb/sdk/lib/ipython.py", line 113, in update
+    self._displayed = False
+        ^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/traitlets/traitlets.py", line 716, in __set__
+    self.set(obj, value)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/traitlets/traitlets.py", line 706, in set
+    obj._notify_trait(self.name, old_value, new_value)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/traitlets/traitlets.py", line 1513, in _notify_trait
+    self.notify_change(
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipywidgets/widgets/widget.py", line 700, in notify_change
+    self.send_state(key=name)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipywidgets/widgets/widget.py", line 586, in send_state
+    self._send(msg, buffers=buffers)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipywidgets/widgets/widget.py", line 825, in _send
+    self.comm.send(data=msg, buffers=buffers)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/comm/base_comm.py", line 147, in send
+    self.publish_msg(
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/comm/comm.py", line 37, in publish_msg
+    self.kernel.session.send(
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/jupyter_client/session.py", line 863, in send
+    stream.send_multipart(to_send, copy=copy)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 346, in send_multipart
+    return self.io_thread.send_multipart(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 276, in send_multipart
+    self.schedule(lambda: self._really_send(*args, **kwargs))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 267, in schedule
+    self._event_pipe.send(b"")
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/zmq/sugar/socket.py", line 701, in send
+    return super().send(data, flags=flags, copy=copy, track=track)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "_zmq.py", line 1092, in zmq.backend.cython._zmq.Socket.send
+  File "_zmq.py", line 1134, in zmq.backend.cython._zmq.Socket.send
+  File "_zmq.py", line 1209, in zmq.backend.cython._zmq._check_closed
+zmq.error.ZMQError: Socket operation on non-socket
+2024-11-14 03:58:58,346 INFO    Thread-6 (_run_job):35944 [wandb_run.py:_restore():2410] restore
+2024-11-14 03:58:58,346 INFO    Thread-6 (_run_job):35944 [wandb_run.py:_restore():2416] restore done
+2024-11-14 03:58:58,346 ERROR   Thread-6 (_run_job):35944 [wandb_run.py:_atexit_cleanup():2449] Problem finishing run
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/torchvision/datasets/utils.py", line 32, in _urlretrieve
+    pbar.update(len(chunk))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 1242, in update
+    self.refresh(lock_args=self.lock_args)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 1347, in refresh
+    self.display()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 1495, in display
+    self.sp(self.__str__() if msg is None else msg)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 459, in print_status
+    fp_write('\r' + s + (' ' * max(last_len[0] - len_s, 0)))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 452, in fp_write
+    fp.write(str(s))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/utils.py", line 196, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/wandb/sdk/lib/redirect.py", line 645, in write
+    self._old_write(data)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 694, in write
+    self._schedule_flush()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 590, in _schedule_flush
+    self.pub_thread.schedule(_schedule_in_thread)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 267, in schedule
+    self._event_pipe.send(b"")
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/zmq/sugar/socket.py", line 701, in send
+    return super().send(data, flags=flags, copy=copy, track=track)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "_zmq.py", line 1092, in zmq.backend.cython._zmq.Socket.send
+  File "_zmq.py", line 1134, in zmq.backend.cython._zmq.Socket.send
+  File "_zmq.py", line 1209, in zmq.backend.cython._zmq._check_closed
+zmq.error.ZMQError: Socket operation on non-socket
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/wandb/agents/pyagent.py", line 306, in _run_job
+    self._function()
+  File "/var/folders/dy/crwmhrjj0cqbyz9960bfh8zm0000gn/T/ipykernel_35944/3316770833.py", line 44, in sweep_train
+    dm.prepare_data()
+  File "/var/folders/dy/crwmhrjj0cqbyz9960bfh8zm0000gn/T/ipykernel_35944/2782740760.py", line 11, in prepare_data
+    CIFAR10(self.data_dir,train=True,download=True)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/torchvision/datasets/cifar.py", line 66, in __init__
+    self.download()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/torchvision/datasets/cifar.py", line 140, in download
+    download_and_extract_archive(self.url, self.root, filename=self.filename, md5=self.tgz_md5)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/torchvision/datasets/utils.py", line 395, in download_and_extract_archive
+    download_url(url, download_root, filename, md5)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/torchvision/datasets/utils.py", line 132, in download_url
+    _urlretrieve(url, fpath)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/torchvision/datasets/utils.py", line 29, in _urlretrieve
+    with open(filename, "wb") as fh, tqdm(total=response.length) as pbar:
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 1140, in __exit__
+    self.close()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 1302, in close
+    self.display(pos=0)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 1495, in display
+    self.sp(self.__str__() if msg is None else msg)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 459, in print_status
+    fp_write('\r' + s + (' ' * max(last_len[0] - len_s, 0)))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/std.py", line 453, in fp_write
+    fp_flush()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/tqdm/utils.py", line 196, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 604, in flush
+    self.pub_thread.schedule(self._flush)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 267, in schedule
+    self._event_pipe.send(b"")
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/zmq/sugar/socket.py", line 701, in send
+    return super().send(data, flags=flags, copy=copy, track=track)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "_zmq.py", line 1092, in zmq.backend.cython._zmq.Socket.send
+  File "_zmq.py", line 1134, in zmq.backend.cython._zmq.Socket.send
+  File "_zmq.py", line 1209, in zmq.backend.cython._zmq._check_closed
+zmq.error.ZMQError: Socket operation on non-socket
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/wandb/sdk/lib/ipython.py", line 113, in update
+    self._displayed = False
+        ^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/traitlets/traitlets.py", line 716, in __set__
+    self.set(obj, value)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/traitlets/traitlets.py", line 706, in set
+    obj._notify_trait(self.name, old_value, new_value)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/traitlets/traitlets.py", line 1513, in _notify_trait
+    self.notify_change(
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipywidgets/widgets/widget.py", line 700, in notify_change
+    self.send_state(key=name)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipywidgets/widgets/widget.py", line 586, in send_state
+    self._send(msg, buffers=buffers)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipywidgets/widgets/widget.py", line 825, in _send
+    self.comm.send(data=msg, buffers=buffers)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/comm/base_comm.py", line 147, in send
+    self.publish_msg(
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/comm/comm.py", line 37, in publish_msg
+    self.kernel.session.send(
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/jupyter_client/session.py", line 863, in send
+    stream.send_multipart(to_send, copy=copy)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 346, in send_multipart
+    return self.io_thread.send_multipart(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 276, in send_multipart
+    self.schedule(lambda: self._really_send(*args, **kwargs))
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 267, in schedule
+    self._event_pipe.send(b"")
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/zmq/sugar/socket.py", line 701, in send
+    return super().send(data, flags=flags, copy=copy, track=track)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "_zmq.py", line 1092, in zmq.backend.cython._zmq.Socket.send
+  File "_zmq.py", line 1134, in zmq.backend.cython._zmq.Socket.send
+  File "_zmq.py", line 1209, in zmq.backend.cython._zmq._check_closed
+zmq.error.ZMQError: Socket operation on non-socket
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/wandb/sdk/wandb_run.py", line 2440, in _atexit_cleanup
+    self._console_stop()
+    ^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/wandb/sdk/wandb_run.py", line 2682, in _on_finish
+    timeout=-1,
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/wandb/sdk/lib/mailbox.py", line 303, in wait
+    if not found and cancel:
+            ^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/wandb/sdk/wandb_run.py", line 2664, in _on_progress_exit
+    trigger.call("on_finished")
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/wandb/sdk/wandb_run.py", line 3863, in _footer_file_pusher_status_info
+    printer: printer.Printer,
+        ^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/wandb/sdk/wandb_run.py", line 3910, in _footer_single_run_file_pusher_status_info
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/wandb/sdk/lib/printer.py", line 288, in progress_update
+    @override
+            ^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/wandb/sdk/lib/ipython.py", line 121, in update
+    self._label.value = label
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/wandb/errors/term.py", line 53, in termwarn
+    _dynamic_blocks: list[DynamicBlock] = []
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/wandb/errors/term.py", line 103, in _log
+    time.sleep(1)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/click/utils.py", line 318, in echo
+    file.write(out)  # type: ignore
+    ^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 694, in write
+    self._schedule_flush()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 590, in _schedule_flush
+    self.pub_thread.schedule(_schedule_in_thread)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ipykernel/iostream.py", line 267, in schedule
+    self._event_pipe.send(b"")
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/zmq/sugar/socket.py", line 701, in send
+    return super().send(data, flags=flags, copy=copy, track=track)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "_zmq.py", line 1092, in zmq.backend.cython._zmq.Socket.send
+  File "_zmq.py", line 1134, in zmq.backend.cython._zmq.Socket.send
+  File "_zmq.py", line 1209, in zmq.backend.cython._zmq._check_closed
+zmq.error.ZMQError: Socket operation on non-socket
