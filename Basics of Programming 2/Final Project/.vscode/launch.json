@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/killercookie/Main file/School-Code/Basics of Programming 2/Final Project",
+      "program": "/Users/killercookie/Main file/School-Code/Basics of Programming 2/Final Project/build/Debug/outDebug"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+C:\Users\diak\Documents\myDAQ2\myDAQ2 code\myDAQ2\bin\Debug\myDAQ2.exe.config
+C:\Users\diak\Documents\myDAQ2\myDAQ2 code\myDAQ2\bin\Debug\myDAQ2.exe
+C:\Users\diak\Documents\myDAQ2\myDAQ2 code\myDAQ2\bin\Debug\myDAQ2.pdb
+C:\Users\diak\Documents\myDAQ2\myDAQ2 code\myDAQ2\bin\Debug\NationalInstruments.Common.dll
+C:\Users\diak\Documents\myDAQ2\myDAQ2 code\myDAQ2\bin\Debug\NationalInstruments.DAQmx.dll
+C:\Users\diak\Documents\myDAQ2\myDAQ2 code\myDAQ2\bin\Debug\NationalInstruments.Common.xml
+C:\Users\diak\Documents\myDAQ2\myDAQ2 code\myDAQ2\bin\Debug\NationalInstruments.DAQmx.xml
+C:\Users\diak\Documents\myDAQ2\myDAQ2 code\myDAQ2\obj\Debug\myDAQ2.csproj.AssemblyReference.cache
+C:\Users\diak\Documents\myDAQ2\myDAQ2 code\myDAQ2\obj\Debug\myDAQ2.Form1.resources
+C:\Users\diak\Documents\myDAQ2\myDAQ2 code\myDAQ2\obj\Debug\myDAQ2.Properties.Resources.resources
+C:\Users\diak\Documents\myDAQ2\myDAQ2 code\myDAQ2\obj\Debug\myDAQ2.csproj.GenerateResource.cache
+C:\Users\diak\Documents\myDAQ2\myDAQ2 code\myDAQ2\obj\Debug\myDAQ2.csproj.CoreCompileInputs.cache
+C:\Users\diak\Documents\myDAQ2\myDAQ2 code\myDAQ2\obj\Debug\myDAQ2.csproj.Up2Date
+C:\Users\diak\Documents\myDAQ2\myDAQ2 code\myDAQ2\obj\Debug\myDAQ2.exe
+C:\Users\diak\Documents\myDAQ2\myDAQ2 code\myDAQ2\obj\Debug\myDAQ2.pdb
