@@ -1,7 +1,7 @@
 #ifndef ANIMATION_HPP
 #define ANIMATION_HPP
-#define _USE_MATH_DEFINES
 
+#define _USE_MATH_DEFINES // Ensures M_PI is available on all platforms
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -10,8 +10,8 @@
 #include <cmath>
 #include <cfloat>
 #include <ctime>
+#include <limits>
 #include <dirent.h>
-#include <filesystem>
 #include <stdexcept>
 
 // ─── Data Structures ─────────────────────────────────────────────────────────
@@ -33,6 +33,34 @@ enum Face { FRONT, LEFT, RIGHT, BACK, TOP, BOTTOM };
 
 struct Point { float x, y, z; };
 
+// ─── New Volumetric Physics Structures ───────────────────────────────────────
+
+struct Vector3 {
+    float dx, dy, dz;
+
+    // Helper to normalize the vector to a length of 1
+    void normalize() {
+        float len = std::sqrt(dx * dx + dy * dy + dz * dz);
+        if (len > 0) {
+            dx /= len; dy /= len; dz /= len;
+        }
+    }
+};
+
+struct Ray {
+    Point origin;
+    Vector3 direction;
+    float intensity; // The power of the light source
+};
+
+struct Projector {
+    Point position;
+    Vector3 base_target;
+    std::vector<Ray> rays;
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 struct Line {
     Point start, end;
     float brightness;
@@ -48,7 +76,7 @@ struct LineSpace {
 };
 
 struct ConstructedSpace {
-    Cube*      space;
+    Cube* space;
     LineSpace* lines;
     int        N;
 
@@ -68,17 +96,22 @@ struct LineParameters {
 
 // ─── Function Declarations ───────────────────────────────────────────────────
 
-// Space creation
-Cube*             create_empty_3d_space(int N);
+// Space creation & Light Transport
+Cube* create_empty_3d_space(int N);
 void              update_3d_space_along_line(Cube* space, Point start, Point end, float brightness);
+void              shoot_ray(Cube* space, Ray ray, float medium_transparency);
 
-// Object construction
+// Object construction (Parametric)
 ConstructedSpace* construct_cube(MediumParameters medium_params, LineParameters line_params, int object_params[1]);
 ConstructedSpace* construct_filled_cube(MediumParameters medium_params, LineParameters line_params, int object_params[1]);
 ConstructedSpace* construct_sphere(MediumParameters medium_params, LineParameters line_params, int object_params[2]);
 ConstructedSpace* construct_filled_sphere(MediumParameters medium_params, LineParameters line_params, int object_params[2]);
 ConstructedSpace* construct_donut(MediumParameters medium_params, LineParameters line_params, int object_params[2]);
 ConstructedSpace* construct_filled_donut(MediumParameters medium_params, LineParameters line_params, int object_params[2]);
+
+// Volumetric Light Test
+ConstructedSpace* construct_test_ray(MediumParameters medium_params);
+void apply_secondary_lighting(Cube* space, int max_depth);
 
 // Save / Load
 ConstructedSpace* load_3d_space(const std::string& filename);

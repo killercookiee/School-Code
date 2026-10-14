@@ -7,13 +7,96 @@ ConstructedSpace::~ConstructedSpace() {
     delete lines;
 }
 
-// ─── Space Creation ───────────────────────────────────────────────────────────
+// ─── Space Creation & Light Transport ────────────────────────────────────────
 
 Cube* create_empty_3d_space(int N) {
     return new Cube(N);
 }
 
-// Bresenham's 3-D line algorithm
+// 3D DDA Ray Marching Algorithm for Volumetric Light
+void shoot_ray(Cube* space, Ray ray, float medium_transparency) {
+    // 1. Ensure the direction vector is normalized
+    ray.direction.normalize();
+
+    // 2. Initial Voxel Coordinates
+    int x = static_cast<int>(std::floor(ray.origin.x));
+    int y = static_cast<int>(std::floor(ray.origin.y));
+    int z = static_cast<int>(std::floor(ray.origin.z));
+
+    // 3. Step Direction (+1 or -1 based on ray vector)
+    int stepX = (ray.direction.dx > 0) ? 1 : ((ray.direction.dx < 0) ? -1 : 0);
+    int stepY = (ray.direction.dy > 0) ? 1 : ((ray.direction.dy < 0) ? -1 : 0);
+    int stepZ = (ray.direction.dz > 0) ? 1 : ((ray.direction.dz < 0) ? -1 : 0);
+
+    // 4. tDelta: Distance along ray to traverse 1 unit in a specific axis
+    float tDeltaX = (stepX != 0) ? std::abs(1.0f / ray.direction.dx) : std::numeric_limits<float>::infinity();
+    float tDeltaY = (stepY != 0) ? std::abs(1.0f / ray.direction.dy) : std::numeric_limits<float>::infinity();
+    float tDeltaZ = (stepZ != 0) ? std::abs(1.0f / ray.direction.dz) : std::numeric_limits<float>::infinity();
+
+    // 5. tMax: Distance from ray origin to the very NEXT voxel boundary
+    float tMaxX = (stepX > 0) ? (std::floor(ray.origin.x) + 1.0f - ray.origin.x) * tDeltaX
+                              : (stepX < 0) ? (ray.origin.x - std::floor(ray.origin.x)) * tDeltaX
+                              : std::numeric_limits<float>::infinity();
+
+    float tMaxY = (stepY > 0) ? (std::floor(ray.origin.y) + 1.0f - ray.origin.y) * tDeltaY
+                              : (stepY < 0) ? (ray.origin.y - std::floor(ray.origin.y)) * tDeltaY
+                              : std::numeric_limits<float>::infinity();
+
+    float tMaxZ = (stepZ > 0) ? (std::floor(ray.origin.z) + 1.0f - ray.origin.z) * tDeltaZ
+                              : (stepZ < 0) ? (ray.origin.z - std::floor(ray.origin.z)) * tDeltaZ
+                              : std::numeric_limits<float>::infinity();
+
+    float current_intensity = ray.intensity;
+    int N = space->N;
+    
+    // Track if we have entered the valid grid space yet
+    bool has_entered_grid = false;
+
+    // 6. The Marching Loop
+    while (current_intensity > 0.01f) { // Stop if light dies out
+        
+        bool in_bounds = (x >= 0 && x < N && y >= 0 && y < N && z >= 0 && z < N);
+        
+        if (in_bounds) {
+            has_entered_grid = true;
+            
+            // The voxel absorbs light based on opacity (1 - transparency)
+            float absorbed = current_intensity * (1.0f - medium_transparency);
+            space->pixels[x][y][z].brightness += absorbed;
+            
+            // The ray loses that absorbed power
+            current_intensity *= medium_transparency;
+        } 
+        else if (has_entered_grid) {
+            // We stepped out of the grid, ray is gone
+            break; 
+        }
+
+        // 7. Step to the next voxel boundary whichever is closest
+        if (tMaxX < tMaxY) {
+            if (tMaxX < tMaxZ) {
+                x += stepX;
+                tMaxX += tDeltaX;
+            } else {
+                z += stepZ;
+                tMaxZ += tDeltaZ;
+            }
+        } else {
+            if (tMaxY < tMaxZ) {
+                y += stepY;
+                tMaxY += tDeltaY;
+            } else {
+                z += stepZ;
+                tMaxZ += tDeltaZ;
+            }
+        }
+        
+        // Safety Break (prevents infinite loops if starting far away)
+        if (std::min({tMaxX, tMaxY, tMaxZ}) > N * 3.0f) break;
+    }
+}
+
+// Bresenham's 3-D line algorithm (Kept for backwards compatibility)
 void update_3d_space_along_line(Cube* space, Point start, Point end, float brightness) {
     int x0 = static_cast<int>(std::roundf(start.x));
     int y0 = static_cast<int>(std::roundf(start.y));
@@ -80,11 +163,11 @@ static void init_medium(Cube* space, const MediumParameters& mp) {
             }
 }
 
-// ─── Object Construction ─────────────────────────────────────────────────────
+// ─── Object Construction (Parametric) ────────────────────────────────────────
 
 ConstructedSpace* construct_cube(MediumParameters medium_params, LineParameters line_params, int object_params[1]) {
     int cube_size = object_params[0];
-    Cube*      space = create_empty_3d_space(medium_params.N);
+    Cube* space = create_empty_3d_space(medium_params.N);
     LineSpace* lines = new LineSpace();
 
     init_medium(space, medium_params);
@@ -133,7 +216,7 @@ ConstructedSpace* construct_cube(MediumParameters medium_params, LineParameters 
 
 ConstructedSpace* construct_filled_cube(MediumParameters medium_params, LineParameters line_params, int object_params[1]) {
     int cube_size = object_params[0];
-    Cube*      space = create_empty_3d_space(medium_params.N);
+    Cube* space = create_empty_3d_space(medium_params.N);
     LineSpace* lines = new LineSpace();
 
     init_medium(space, medium_params);
@@ -196,7 +279,7 @@ ConstructedSpace* construct_sphere(MediumParameters medium_params, LineParameter
     int segments = 10 * N;
     int radius  = static_cast<int>(std::roundf(object_params[0] / 2.0f));
 
-    Cube*      space = create_empty_3d_space(N);
+    Cube* space = create_empty_3d_space(N);
     LineSpace* lines = new LineSpace();
 
     init_medium(space, medium_params);
@@ -231,7 +314,7 @@ ConstructedSpace* construct_filled_sphere(MediumParameters medium_params, LinePa
     int segments = 10 * N;
     int radius  = static_cast<int>(std::roundf(object_params[0] / 2.0f));
 
-    Cube*      space = create_empty_3d_space(N);
+    Cube* space = create_empty_3d_space(N);
     LineSpace* lines = new LineSpace();
 
     init_medium(space, medium_params);
@@ -281,7 +364,7 @@ ConstructedSpace* construct_donut(MediumParameters medium_params, LineParameters
     int major_radius = object_params[0];
     int minor_radius = object_params[1];
 
-    Cube*      space = create_empty_3d_space(N);
+    Cube* space = create_empty_3d_space(N);
     LineSpace* lines = new LineSpace();
 
     init_medium(space, medium_params);
@@ -332,7 +415,7 @@ ConstructedSpace* construct_filled_donut(MediumParameters medium_params, LinePar
     int major_radius = object_params[0];
     int minor_radius = object_params[1];
 
-    Cube*      space = create_empty_3d_space(N);
+    Cube* space = create_empty_3d_space(N);
     LineSpace* lines = new LineSpace();
 
     init_medium(space, medium_params);
@@ -392,6 +475,102 @@ ConstructedSpace* construct_filled_donut(MediumParameters medium_params, LinePar
     return new ConstructedSpace(space, lines, N);
 }
 
+// ─── Test Hook for Volumetric Engine ─────────────────────────────────────────
+
+ConstructedSpace* construct_test_ray(MediumParameters medium_params) {
+    int N = medium_params.N;
+    Cube* space = create_empty_3d_space(N);
+    LineSpace* lines = new LineSpace(); // We leave lines empty for the ray simulation
+    
+    init_medium(space, medium_params);
+
+    Ray test_ray;
+    
+    // Start way outside the box to the left, pointing straight right
+    test_ray.origin = { -10.0f, static_cast<float>(N/2), static_cast<float>(N/2) };
+    test_ray.direction = { 1.0f, 0.0f, 0.0f };
+    test_ray.intensity = 100.0f;
+
+    // Shoot the ray! 
+    shoot_ray(space, test_ray, medium_params.medium_transparency);
+
+    return new ConstructedSpace(space, lines, N);
+}
+
+// ─── Secondary Lighting (Volumetric Scattering) ──────────────────────────────
+
+void apply_secondary_lighting(Cube* space, int max_depth) {
+    int N = space->N;
+    
+    // 3D grid to store the "active" light energy waiting to scatter
+    // We initialize it with the brightness deposited by the primary rays
+    std::vector<std::vector<std::vector<float>>> active_light(
+        N, std::vector<std::vector<float>>(N, std::vector<float>(N, 0.0f)));
+        
+    for (int x = 0; x < N; x++) {
+        for (int y = 0; y < N; y++) {
+            for (int z = 0; z < N; z++) {
+                active_light[x][y][z] = space->pixels[x][y][z].brightness;
+            }
+        }
+    }
+    
+    // 6 cardinal directions (up, down, left, right, forward, back)
+    int dx[] = {1, -1, 0, 0, 0, 0};
+    int dy[] = {0, 0, 1, -1, 0, 0};
+    int dz[] = {0, 0, 0, 0, 1, -1};
+    
+    for (int depth = 0; max_depth == -1 || depth < max_depth; depth++) {
+        
+        std::vector<std::vector<std::vector<float>>> next_light(
+            N, std::vector<std::vector<float>>(N, std::vector<float>(N, 0.0f)));
+            
+        float total_energy_in_wave = 0.0f;
+        
+        for (int x = 0; x < N; x++) {
+            for (int y = 0; y < N; y++) {
+                for (int z = 0; z < N; z++) {
+                    float energy = active_light[x][y][z];
+                    if (energy < 0.01f) continue; // Skip dark voxels to save CPU
+                    
+                    // Scatter energy equally to 6 neighbors (Energy Conservation)
+                    float scatter_amount = energy / 6.0f;
+                    
+                    for (int i = 0; i < 6; i++) {
+                        int nx = x + dx[i];
+                        int ny = y + dy[i];
+                        int nz = z + dz[i];
+                        
+                        if (nx >= 0 && nx < N && ny >= 0 && ny < N && nz >= 0 && nz < N) {
+                            float transparency = space->pixels[nx][ny][nz].transparency;
+                            float opacity = 1.0f - transparency;
+                            
+                            // 1. The neighbor absorbs some light and glows
+                            float absorbed = scatter_amount * opacity;
+                            space->pixels[nx][ny][nz].brightness += absorbed;
+                            
+                            // 2. The rest of the light continues propagating
+                            float transmitted = scatter_amount * transparency;
+                            next_light[nx][ny][nz] += transmitted;
+                            
+                            total_energy_in_wave += transmitted;
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Swap buffers
+        active_light = next_light;
+        
+        // Early exit: If the wave dies out, stop calculating
+        if (total_energy_in_wave < 0.1f) {
+            std::cout << "(Stabilized after " << depth + 1 << " passes) ";
+            break;
+        }
+    }
+}
+
 // ─── Save / Load ─────────────────────────────────────────────────────────────
 
 ConstructedSpace* load_3d_space(const std::string& filename) {
@@ -409,7 +588,7 @@ ConstructedSpace* load_3d_space(const std::string& filename) {
         return nullptr;
     }
 
-    Cube*      space = create_empty_3d_space(N);
+    Cube* space = create_empty_3d_space(N);
     LineSpace* lines = new LineSpace();
 
     int i, j, k, r, g, b;
@@ -449,7 +628,7 @@ void save_3d_space(ConstructedSpace* constructed, const std::string& filename) {
         return;
     }
 
-    Cube*      space = constructed->space;
+    Cube* space = constructed->space;
     LineSpace* lines = constructed->lines;
 
     file << "CUBE " << space->N << "\n";
@@ -474,6 +653,8 @@ void save_3d_space(ConstructedSpace* constructed, const std::string& filename) {
 
 // ─── Rendering ───────────────────────────────────────────────────────────────
 
+// ─── REPLACE THIS FUNCTION IN animation.cpp ──────────────────────────────────
+
 void render_2d_face(Cube* space, Face face, std::vector<std::string>& screen) {
     int N = space->N;
     screen.assign(N, std::string(N, ' '));
@@ -485,24 +666,26 @@ void render_2d_face(Cube* space, Face face, std::vector<std::string>& screen) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             float total   = 0.0f;
-            float opacity = 1.0f;
+            
+            // This multiplier perfectly calculates transparency^distance
+            float opacity = 1.0f; 
 
             for (int k = 0; k < N; k++) {
                 Pixel p;
-                float distance;
 
                 switch (face) {
-                    case FRONT:  p = space->pixels[i][j][k];             distance = k + 1; break;
-                    case LEFT:   p = space->pixels[k][i][j];             distance = k + 1; break;
-                    case RIGHT:  p = space->pixels[N - 1 - k][i][j];    distance = k + 1; break;
-                    case BACK:   p = space->pixels[i][j][N - 1 - k];    distance = k + 1; break;
-                    case TOP:    p = space->pixels[i][k][j];             distance = k + 1; break;
-                    case BOTTOM: p = space->pixels[i][N - 1 - k][j];    distance = k + 1; break;
+                    case FRONT:  p = space->pixels[i][j][k];             break;
+                    case LEFT:   p = space->pixels[k][i][j];             break;
+                    case RIGHT:  p = space->pixels[N - 1 - k][i][j];     break;
+                    case BACK:   p = space->pixels[i][j][N - 1 - k];     break;
+                    case TOP:    p = space->pixels[i][k][j];             break;
+                    case BOTTOM: p = space->pixels[i][N - 1 - k][j];     break;
                     default:     continue;
                 }
 
-                float inv_sq = 1.0f / (distance * distance);
-                total  += p.brightness * inv_sq * opacity;
+                // Removed inv_sq falloff. 
+                // Only exponential mist transparency is applied!
+                total  += p.brightness * opacity;
                 opacity *= p.transparency;
 
                 if (opacity <= 0.01f) break;
@@ -568,33 +751,35 @@ void rotate_point(Point& p, float theta_x, float theta_y, float theta_z) {
 
 ConstructedSpace* rotate_constructed_space(ConstructedSpace* input_space, int transformation_params[3]) {
     int   N       = input_space->N;
-    float theta_x = transformation_params[0] * static_cast<float>(M_PI) / 180.0f;
-    float theta_y = transformation_params[1] * static_cast<float>(M_PI) / 180.0f;
-    float theta_z = transformation_params[2] * static_cast<float>(M_PI) / 180.0f;
+    
+    // We negate the angles to perform backward/inverse mapping
+    float theta_x = -transformation_params[0] * static_cast<float>(M_PI) / 180.0f;
+    float theta_y = -transformation_params[1] * static_cast<float>(M_PI) / 180.0f;
+    float theta_z = -transformation_params[2] * static_cast<float>(M_PI) / 180.0f;
 
     Cube* new_space = create_empty_3d_space(N);
     int   center    = N / 2;
 
-   // Inside rotate_constructed_space
     for (int ni = 0; ni < N; ni++) {
-    for (int nj = 0; nj < N; nj++) {
-        for (int nk = 0; nk < N; nk++) {
-            // 1. Center the coordinate
-            Point p = { static_cast<float>(ni - center),
-                        static_cast<float>(nj - center),
-                        static_cast<float>(nk - center) };
-            
-            // 2. Apply INVERSE rotation (pass negative angles)
-            rotate_point(p, -theta_x, -theta_y, -theta_z);
+        for (int nj = 0; nj < N; nj++) {
+            for (int nk = 0; nk < N; nk++) {
+                
+                // 1. Center the destination coordinate
+                Point p = { static_cast<float>(ni - center),
+                             static_cast<float>(nj - center),
+                             static_cast<float>(nk - center) };
+                             
+                // 2. Rotate backward to find where it came from
+                rotate_point(p, theta_x, theta_y, theta_z);
 
-            // 3. Map back to source grid
-            int i = static_cast<int>(std::roundf(p.x)) + center;
-            int j = static_cast<int>(std::roundf(p.y)) + center;
-            int k = static_cast<int>(std::roundf(p.z)) + center;
+                // 3. Round to the nearest source voxel
+                int i = static_cast<int>(std::roundf(p.x)) + center;
+                int j = static_cast<int>(std::roundf(p.y)) + center;
+                int k = static_cast<int>(std::roundf(p.z)) + center;
 
-            // 4. Sample if within bounds
-            if (i >= 0 && i < N && j >= 0 && j < N && k >= 0 && k < N) {
-                new_space->pixels[ni][nj][nk] = input_space->space->pixels[i][j][k];
+                // 4. Sample if within bounds
+                if (i >= 0 && i < N && j >= 0 && j < N && k >= 0 && k < N) {
+                    new_space->pixels[ni][nj][nk] = input_space->space->pixels[i][j][k];
                 }
             }
         }
